@@ -19,6 +19,15 @@ const TRIP = {
   datesLabel: "February 5–7, 2027",
   // Paste the registration form link here. Leave "" to show "Registration opens soon".
   registerUrl: "",
+  // Google items shown inside the page (swap IDs each year)
+  roomsSheet: "1U3mJ5qgQWiGWByCd0PgFQkZAVFENhy0oRWNS3u0ePKg",
+  foodSheet: "10_j9vWlXOkzw3v08uXL5k1d1G_Hpg0wLckGebsz164g",
+  feedbackForm: "1cKLQbAblXBP4RPjchvP8mothgh1UpWhRh29A2cm2lvU",
+  recordings: [
+    ["Lecture 1 · 2025", "13smJSixLnfGhRMKSdpU8dD1mZT3G_UBo"],
+    ["Lecture 2 · 2025", "1ycGvS-MbXdjWf6jYKd6AV8P8wn9puQbQ"],
+    ["Liturgy homily · 2025", "1KULOu8h6iGxcebv95LPXb5FdLqfA0xkt"],
+  ],
   contactName: "Chris Mikhail",
   contactEmail: "mikhail.chris.cm11@gmail.com",
 };
@@ -198,6 +207,29 @@ footer .brand{justify-content:center;margin-bottom:10px}
 .map.photo-map{background:center/cover no-repeat}
 .map.photo-map::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(20,32,21,.75))}
 .map.photo-map span{position:absolute;left:18px;bottom:16px;z-index:1;color:#fff;font-weight:600;font-size:15px}
+.ytabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.ytabs button{border:1px solid var(--line);background:var(--paper);font:600 14px Inter,sans-serif;color:var(--ink-2);padding:9px 18px;border-radius:999px;cursor:pointer}
+.ytabs button[aria-selected=true]{background:var(--vine);border-color:var(--vine);color:#fff}
+.ggrid{columns:4 220px;column-gap:10px}
+.ggrid img{width:100%;height:auto;display:block;margin:0 0 10px;border-radius:12px;cursor:zoom-in;break-inside:avoid;background:var(--line)}
+@media(max-width:520px){.ggrid{columns:2;column-gap:8px}.ggrid img{margin-bottom:8px}}
+.lb .nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.12);border:0;color:#fff;width:46px;height:46px;border-radius:50%;font-size:26px;cursor:pointer}
+.lb .prev{left:14px}.lb .next{right:14px}
+.lb .cnt{position:absolute;bottom:16px;left:0;right:0;text-align:center;color:#cfd6c8;font-size:13px}
+.hub{background:var(--paper);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.hub .tabs2{display:flex;overflow-x:auto;border-bottom:1px solid var(--line);background:var(--cream)}
+.hub .tabs2 button{flex:0 0 auto;border:0;background:none;font:600 14px Inter,sans-serif;color:var(--ink-2);padding:16px 20px;cursor:pointer;border-bottom:3px solid transparent}
+.hub .tabs2 button[aria-selected=true]{color:var(--vine);border-bottom-color:var(--gold)}
+.hub .pane{padding:22px}
+.hub .pane[hidden]{display:none}
+.hub iframe{width:100%;border:0;border-radius:12px;background:#fff;display:block}
+.hub .hint{font-size:14px;color:var(--muted);margin-bottom:14px}
+.rec{display:grid;gap:14px}
+.rec .item{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fff}
+.rec .item b{display:block;margin-bottom:8px;color:var(--vine)}
+.rec iframe{height:70px}
+.printbtn{margin-top:14px;background:var(--paper);border:1px solid var(--line);color:var(--vine)}
+@media print{nav,.hero,.stats,#about,#bring,#reflect,#gallery,#resources,#location,footer,.tabs,.printbtn,.note{display:none!important}#schedule{padding:0;border:0}.timeline li{break-inside:avoid}}
 </style>
 </head>
 <body>
@@ -260,6 +292,7 @@ footer .brand{justify-content:center;margin-bottom:10px}
     <button role="tab" aria-selected="false" data-day="sun">Sunday</button>
   </div>
   <ul class="timeline" id="timeline"></ul>
+  <button class="btn printbtn" onclick="printAll()">Print the full schedule</button>
   <p class="note">Set an alarm. Midnight Praises start at 4:00 AM on both Saturday and Sunday.</p>
 </div></section>
 
@@ -302,34 +335,29 @@ footer .brand{justify-content:center;margin-bottom:10px}
   <div class="sec-head">
     <div class="eyebrow">Gallery</div>
     <h2>From past trips</h2>
-    <p>Swipe through a few moments from 2025 and 2026. Tap a photo to see it larger.</p>
+    <p>Five years of Abbey Trips. Pick a year, then tap any photo to see it larger.</p>
   </div>
-  <div class="strip">
-    <img src="../img/group-selfie.webp" alt="Group selfie" loading="lazy">
-    <img src="../img/gazebo-monk.webp" alt="Talk under the gazebo" loading="lazy">
-    <img src="../img/meeting-word.webp" alt="A spiritual word in the hall" loading="lazy">
-    <img src="../img/van-1.webp" alt="Road trip" loading="lazy">
-    <img src="../img/gazebo-talk.webp" alt="Gazebo conversation" loading="lazy">
-    <img src="../img/meeting-hall.webp" alt="The Abbey hall" loading="lazy">
-    <img src="../img/coffee-stop.webp" alt="Coffee stop" loading="lazy">
-    <img src="../img/van-2.webp" alt="Friends in the van" loading="lazy">
-    <img src="../img/road-stop.webp" alt="Stop on the road" loading="lazy">
-    <img src="../img/gazebo-circle.webp" alt="Gathered in a circle" loading="lazy">
-  </div>
+  <div class="ytabs" id="ytabs"><button data-y="2026" aria-selected="true">2026</button><button data-y="2025" aria-selected="false">2025</button><button data-y="2024" aria-selected="false">2024</button><button data-y="2023" aria-selected="false">2023</button><button data-y="2022" aria-selected="false">2022</button></div>
+  <div class="ggrid" id="ggrid"></div>
 </div></section>
 
 <section id="resources"><div class="wrap">
   <div class="sec-head">
-    <div class="eyebrow">Resources</div>
+    <div class="eyebrow">Trip hub</div>
     <h2>Everything in one place</h2>
+    <p>Room assignments, the food sign-up, lecture recordings and feedback, all right here.</p>
   </div>
-  <div class="res">
-    <a href="https://docs.google.com/spreadsheets/d/1U3mJ5qgQWiGWByCd0PgFQkZAVFENhy0oRWNS3u0ePKg/edit"><b>Room assignments</b><span>Find your room and roommates</span></a>
-    <a href="https://docs.google.com/spreadsheets/d/10_j9vWlXOkzw3v08uXL5k1d1G_Hpg0wLckGebsz164g/edit"><b>Food donation list</b><span>Claim an item for the monastery kitchen</span></a>
-    <a href="https://docs.google.com/document/d/1FgqiksWBrnGo6rWIJbP_Hts-36DorpQp8nDOlejmR3g/edit"><b>Printable schedule</b><span>The full weekend timetable</span></a>
-    <a href="https://drive.google.com/drive/folders/1cFIRZ_OAanddbEJNhYCifFHC2Z9CjMSQ"><b>Photo gallery</b><span>Pictures from the retreat</span></a>
-    <a href="https://drive.google.com/drive/folders/1iGJeIhGkwNOf6kk6sz1-KlYT6r_W_7Vt"><b>Lecture recordings</b><span>Audio and slides from past years</span></a>
-    <a href="https://docs.google.com/forms/d/1cKLQbAblXBP4RPjchvP8mothgh1UpWhRh29A2cm2lvU/viewform"><b>Feedback form</b><span>Help us make next year better</span></a>
+  <div class="hub">
+    <div class="tabs2" role="tablist">
+      <button data-p="rooms" aria-selected="true">Room assignments</button>
+      <button data-p="food" aria-selected="false">Food sign-up</button>
+      <button data-p="recs" aria-selected="false">Lecture recordings</button>
+      <button data-p="feedback" aria-selected="false">Feedback</button>
+    </div>
+    <div class="pane" id="p-rooms"><p class="hint">Find your name to see your room and roommates.</p><div data-frame="rooms"></div></div>
+    <div class="pane" id="p-food" hidden><p class="hint">Pick an item to bring for the monastery kitchen and type your name next to it. Changes save automatically.</p><div data-frame="food"></div></div>
+    <div class="pane" id="p-recs" hidden><p class="hint">Listen to talks from past retreats.</p><div class="rec" id="recs"></div></div>
+    <div class="pane" id="p-feedback" hidden><p class="hint">Tell us how the retreat went so we can make next year better.</p><div data-frame="feedback"></div></div>
   </div>
 </div></section>
 
@@ -409,6 +437,37 @@ addEventListener("scroll",()=>nav.classList.toggle("scrolled",scrollY>10),{passi
 document.querySelectorAll(".mosaic figure img,.strip img").forEach(i=>i.addEventListener("click",()=>{const lb=document.getElementById("lb");lb.querySelector("img").src=i.src;lb.classList.add("on")}));
 document.getElementById("lb").addEventListener("click",e=>{if(e.target.id==="lb")e.currentTarget.classList.remove("on")});
 addEventListener("keydown",e=>{if(e.key==="Escape")document.getElementById("lb").classList.remove("on")});
+</script>
+<script>
+const GAL={"2022": [[1, 520, 390], [2, 520, 390], [3, 520, 390], [4, 520, 390], [5, 520, 390], [6, 520, 390], [7, 520, 390], [8, 390, 520], [9, 520, 390], [10, 312, 520], [11, 240, 520], [12, 520, 390], [13, 520, 390], [14, 520, 390], [15, 520, 390], [16, 390, 520], [17, 390, 520], [18, 390, 520], [19, 390, 520], [20, 390, 520], [21, 520, 390], [22, 390, 520], [23, 390, 520], [24, 390, 520], [25, 520, 390], [26, 520, 390], [27, 390, 520]], "2023": [[1, 390, 520], [2, 390, 520], [3, 520, 390], [4, 520, 390], [5, 520, 390], [6, 520, 390], [7, 520, 390], [8, 520, 390], [9, 390, 520], [10, 390, 520], [11, 390, 520], [12, 520, 390], [13, 390, 520], [14, 390, 520], [15, 520, 390], [16, 520, 390], [17, 390, 520]], "2024": [[1, 520, 390], [2, 520, 390], [3, 520, 390], [4, 520, 390], [5, 520, 390], [6, 390, 520], [7, 520, 390], [8, 390, 520], [9, 390, 520], [10, 390, 520], [11, 390, 520], [12, 390, 520], [13, 390, 520], [14, 390, 520], [15, 390, 520], [16, 390, 520], [17, 390, 520], [18, 390, 520], [19, 520, 390], [20, 520, 390], [21, 520, 390], [22, 390, 520], [23, 390, 520], [24, 390, 520], [25, 390, 520], [26, 390, 520], [27, 520, 392], [28, 392, 520]], "2025": [[1, 520, 390], [2, 390, 520], [3, 390, 520], [4, 390, 520], [5, 390, 520], [6, 390, 520], [7, 390, 520], [8, 390, 520], [9, 390, 520], [10, 390, 520], [11, 390, 520], [12, 390, 520], [13, 390, 520], [14, 390, 520], [15, 390, 520], [16, 390, 520], [17, 390, 520], [18, 390, 520], [19, 390, 520], [20, 390, 520], [21, 390, 520]], "2026": [[1, 520, 390], [2, 520, 390], [3, 520, 390], [4, 520, 390], [5, 520, 390], [6, 390, 520], [7, 520, 390], [8, 390, 520], [9, 520, 293], [10, 520, 293], [11, 393, 520], [12, 520, 390], [13, 520, 390], [14, 390, 520], [15, 390, 520], [16, 520, 421], [17, 390, 520], [18, 457, 520], [19, 520, 390], [20, 520, 390], [21, 390, 520], [22, 390, 520], [23, 390, 520], [24, 390, 520], [25, 390, 520], [26, 390, 520], [27, 520, 390], [28, 390, 520], [29, 390, 520]]};
+const ggrid=document.getElementById("ggrid");let cur=[],ci=0;
+function showYear(y){document.querySelectorAll("#ytabs button").forEach(b=>b.setAttribute("aria-selected",b.dataset.y===y));
+ cur=GAL[y].map(([n,w,h])=>({t:`../img/gallery/${y}/${n}_t.webp`,f:`../img/gallery/${y}/${n}.webp`,w,h}));
+ ggrid.innerHTML=cur.map((p,i)=>`<img src="${p.t}" width="${p.w}" height="${p.h}" loading="lazy" alt="Abbey Trip ${y} photo ${i+1}" data-i="${i}">`).join("");}
+document.querySelectorAll("#ytabs button").forEach(b=>b.onclick=()=>showYear(b.dataset.y));
+showYear(document.querySelector("#ytabs button").dataset.y);
+const lb=document.getElementById("lb");
+lb.insertAdjacentHTML("beforeend",'<button class="nav prev" aria-label="Previous">‹</button><button class="nav next" aria-label="Next">›</button><div class="cnt"></div>');
+function openAt(i){ci=(i+cur.length)%cur.length;lb.querySelector("img").src=cur[ci].f;lb.querySelector(".cnt").textContent=(ci+1)+" / "+cur.length;lb.classList.add("on");}
+ggrid.addEventListener("click",e=>{if(e.target.dataset.i)openAt(+e.target.dataset.i)});
+lb.querySelector(".prev").onclick=e=>{e.stopPropagation();openAt(ci-1)};
+lb.querySelector(".next").onclick=e=>{e.stopPropagation();openAt(ci+1)};
+addEventListener("keydown",e=>{if(!lb.classList.contains("on")||!cur.length)return;if(e.key==="ArrowLeft")openAt(ci-1);if(e.key==="ArrowRight")openAt(ci+1)});
+let tx=0;lb.addEventListener("touchstart",e=>tx=e.touches[0].clientX,{passive:true});
+lb.addEventListener("touchend",e=>{const d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>50)openAt(ci+(d<0?1:-1))});
+// hub
+const FR={rooms:()=>`<iframe loading="lazy" style="height:640px" src="https://docs.google.com/spreadsheets/d/${TRIP.roomsSheet}/preview" title="Room assignments"></iframe>`,
+ food:()=>`<iframe loading="lazy" style="height:640px" src="https://docs.google.com/spreadsheets/d/${TRIP.foodSheet}/edit?rm=minimal" title="Food sign-up"></iframe>`,
+ feedback:()=>`<iframe loading="lazy" style="height:900px" src="https://docs.google.com/forms/d/${TRIP.feedbackForm}/viewform?embedded=true" title="Feedback form"></iframe>`};
+function openPane(p){document.querySelectorAll(".tabs2 button").forEach(b=>b.setAttribute("aria-selected",b.dataset.p===p));
+ document.querySelectorAll(".hub .pane").forEach(x=>x.hidden=x.id!=="p-"+p);
+ const f=document.querySelector(`#p-${p} [data-frame]`);if(f&&!f.innerHTML)f.innerHTML=FR[p]();
+ if(p==="recs"){const r=document.getElementById("recs");if(!r.innerHTML)r.innerHTML=TRIP.recordings.map(([t,id])=>`<div class="item"><b>${t}</b><iframe loading="lazy" src="https://drive.google.com/file/d/${id}/preview" allow="autoplay" title="${t}"></iframe></div>`).join("");}}
+document.querySelectorAll(".tabs2 button").forEach(b=>b.onclick=()=>openPane(b.dataset.p));
+openPane("rooms");
+function printAll(){const tl=document.getElementById("timeline");const keep=tl.innerHTML;
+ tl.innerHTML=["fri","sat","sun"].map(d=>`<li style="display:block;border:0;padding:18px 0 4px"><b style="font-family:Cormorant Garamond,serif;font-size:24px;color:#2f4a32">${{fri:"Friday",sat:"Saturday",sun:"Sunday"}[d]}</b></li>`+SCHEDULE[d].map(([t,x])=>`<li><time>${t}</time><span class="act">${x}</span></li>`).join("")).join("");
+ window.print();tl.innerHTML=keep;}
 </script>
 </body>
 </html>
