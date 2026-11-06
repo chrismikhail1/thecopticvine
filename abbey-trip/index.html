@@ -23,11 +23,6 @@ const TRIP = {
   roomsSheet: "1U3mJ5qgQWiGWByCd0PgFQkZAVFENhy0oRWNS3u0ePKg",
   foodSheet: "10_j9vWlXOkzw3v08uXL5k1d1G_Hpg0wLckGebsz164g",
   feedbackForm: "1cKLQbAblXBP4RPjchvP8mothgh1UpWhRh29A2cm2lvU",
-  recordings: [
-    ["Lecture 1 · 2025", "13smJSixLnfGhRMKSdpU8dD1mZT3G_UBo"],
-    ["Lecture 2 · 2025", "1ycGvS-MbXdjWf6jYKd6AV8P8wn9puQbQ"],
-    ["Liturgy homily · 2025", "1KULOu8h6iGxcebv95LPXb5FdLqfA0xkt"],
-  ],
   contactName: "Chris Mikhail",
   contactEmail: "mikhail.chris.cm11@gmail.com",
 };
@@ -347,7 +342,7 @@ footer .brand{justify-content:center;margin-bottom:10px}
     </div>
     <div class="pane" id="p-rooms"><p class="hint">Find your name to see your room and roommates.</p><div data-frame="rooms"></div></div>
     <div class="pane" id="p-food" hidden><p class="hint">Pick an item to bring for the monastery kitchen and type your name next to it. Changes save automatically.</p><div data-frame="food"></div></div>
-    <div class="pane" id="p-recs" hidden><p class="hint">Listen to talks from past retreats.</p><div class="rec" id="recs"></div></div>
+    <div class="pane" id="p-recs" hidden><p class="hint">Lectures, Tasbeha and Tamgeed from past retreats. Pick a year.</p><div class="ytabs" id="recyears"></div><div class="rec" id="recs"></div></div>
     <div class="pane" id="p-feedback" hidden><p class="hint">Tell us how the retreat went so we can make next year better.</p><div data-frame="feedback"></div></div>
   </div>
 </div></section>
@@ -436,7 +431,14 @@ const FR={rooms:()=>`<iframe loading="lazy" style="height:640px" src="https://do
 function openPane(p){document.querySelectorAll(".tabs2 button").forEach(b=>b.setAttribute("aria-selected",b.dataset.p===p));
  document.querySelectorAll(".hub .pane").forEach(x=>x.hidden=x.id!=="p-"+p);
  const f=document.querySelector(`#p-${p} [data-frame]`);if(f&&!f.innerHTML)f.innerHTML=FR[p]();
- if(p==="recs"){const r=document.getElementById("recs");if(!r.innerHTML)r.innerHTML=TRIP.recordings.map(([t,id])=>`<div class="item"><b>${t}</b><iframe loading="lazy" src="https://drive.google.com/file/d/${id}/preview" allow="autoplay" title="${t}"></iframe></div>`).join("");}}
+ if(p==="recs")loadRecs();}
+let RECS=null;
+function recYear(y){document.querySelectorAll("#recyears button").forEach(b=>b.setAttribute("aria-selected",b.dataset.y===y));
+ document.getElementById("recs").innerHTML=RECS[y].map(r=>`<div class="item"><b>${r.title}</b><iframe loading="lazy" style="height:${r.type==="slides"?"380px":"70px"}" src="https://drive.google.com/file/d/${r.id}/preview" allow="autoplay" title="${r.title}"></iframe></div>`).join("");}
+function loadRecs(){if(RECS)return;fetch("recordings.json").then(r=>r.json()).then(j=>{RECS=j;const ys=Object.keys(j).sort().reverse();
+ document.getElementById("recyears").innerHTML=ys.map(y=>`<button data-y="${y}">${y}</button>`).join("");
+ document.querySelectorAll("#recyears button").forEach(b=>b.onclick=()=>recYear(b.dataset.y));recYear(ys[0]);})
+ .catch(()=>{document.getElementById("recs").textContent="Recordings could not load. Please refresh the page.";});}
 document.querySelectorAll(".tabs2 button").forEach(b=>b.onclick=()=>openPane(b.dataset.p));
 openPane("rooms");
 function printAll(){const tl=document.getElementById("timeline");const keep=tl.innerHTML;

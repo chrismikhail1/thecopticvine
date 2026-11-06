@@ -1,0 +1,29 @@
+{
+ "2025": [
+  {"id": "13smJSixLnfGhRMKSdpU8dD1mZT3G_UBo", "title": "Lecture 1", "type": "audio"},
+  {"id": "1ycGvS-MbXdjWf6jYKd6AV8P8wn9puQbQ", "title": "Lecture 2", "type": "audio"},
+  {"id": "1KULOu8h6iGxcebv95LPXb5FdLqfA0xkt", "title": "Liturgy homily", "type": "audio"}
+ ],
+ "2024": [
+  {"id": "1x3zW5cyPkf7ay_sI-Pl2yQHEbPssucTr", "title": "Lecture 1 · H.G. Bishop Gregory, with Q&A", "type": "audio"},
+  {"id": "1pMFBwaMe3znR9u7vVdGVlbQ2BmpGC9ML", "title": "Lecture 3 · Fr. Arsenious Abba Moses · On the End of Life with Joy & Hope", "type": "audio"},
+  {"id": "1EnDoUaqF0VTLGAx-zX2tuCsveMgkdAuP", "title": "Slides · On the End of Life: The Fear of the Lord & Hope", "type": "slides"},
+  {"id": "1xAzKCcTOtUddfJeszY2Cxo51Sy0TR-os", "title": "Veneration", "type": "audio"}
+ ],
+ "2023": [
+  {"id": "1bF2R6HNMNyLdqcoVV0uM_8BWpXrMLHe4", "title": "Lecture 1 · Fr. Arsenius Abba Moses", "type": "audio"},
+  {"id": "1bM-wToQVugz7wjCvrWKLJiBaMkjy7bLK", "title": "Lecture 2 · Fr. Daniel Abba Moses", "type": "audio"},
+  {"id": "1bFq8kli-G1S1eNr680i7isvaenCTausT", "title": "Lecture 3 · Q&A", "type": "audio"},
+  {"id": "1c3Aus0WaRIaqIHeioRZmw29F68eC0LqY", "title": "Veneration", "type": "audio"}
+ ],
+ "2022": [
+  {"id": "1HUxc7bqLfTCVM9V2m9N5c3GoYxwI4GXE", "title": "Lecture 1 · Fr. Arsanious", "type": "audio"},
+  {"id": "1meSHLCSH57JbwxpVx2oBBDcrwrgCTWw5", "title": "Slides · Lecture 1 · \"Who am I\"", "type": "slides"},
+  {"id": "1HFiReEuK0BixMSuRUv1l2i2rXpC5vtks", "title": "Lecture 2 · Fr. Daniel", "type": "audio"},
+  {"id": "1HPH9ICvduPsgKJ35ydb7c7SMIoE4ie0j", "title": "Lecture 3 · Fr. Pachomius", "type": "audio"},
+  {"id": "1HSYF6GxHsLDEc9Hquk830KgbxmT5y-9f", "title": "Tasbeha · Saturday morning (English)", "type": "audio"},
+  {"id": "1HaTN3KzKS8gXNst-OfqH1hm9MBG5g7z5", "title": "Tamgeed · Friday night", "type": "audio"},
+  {"id": "1HMDsCXTZyRO0_HgHhh7z-LReLN56ZxCp", "title": "Tamgeed · Saturday night (part 1)", "type": "audio"},
+  {"id": "1Ih_YkpqsatVzb_NU_T_2_tY2-yHNaYrJ", "title": "Tamgeed · Saturday night (part 2)", "type": "audio"}
+ ]
+}
