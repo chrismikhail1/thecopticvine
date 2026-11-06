@@ -224,6 +224,10 @@ footer .brand{justify-content:center;margin-bottom:10px}
 .photo-top.logo img{width:auto;height:58%;object-fit:contain;opacity:.92}
 @media(max-width:720px){nav .wrap{flex-wrap:wrap;height:auto;padding-top:10px;row-gap:4px}nav .links{display:flex!important;order:3;width:100%;overflow-x:auto;gap:20px;padding:6px 0 12px;white-space:nowrap;scrollbar-width:none}nav .links::-webkit-scrollbar{display:none}html{scroll-padding-top:110px}}
 .links a.on{color:var(--vine);font-weight:600}
+.igrow{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 14px;margin-bottom:28px;-webkit-overflow-scrolling:touch}
+.igrow .igp{flex:0 0 340px;scroll-snap-align:start;max-width:86vw}
+.igrow .igp blockquote{margin:0!important;min-width:0!important;width:100%!important}
+.igrow:empty{display:none}
 </style>
 </head>
 <body>
@@ -316,8 +320,9 @@ footer .brand{justify-content:center;margin-bottom:10px}
   <div class="sec-head">
     <div class="eyebrow">Moments</div>
     <h2>Branches of one vine</h2>
-    <p>From the road trip down to the monastery to talks under the gazebo, a few moments from our Abbey Trips.</p>
+    <p>Recent moments from @thecopticvine, plus a few favorites from our Abbey Trips.</p>
   </div>
+  <div class="igrow" id="igrow"></div>
   <div class="mosaic">
     <figure class="big"><img src="img/group-selfie.webp" alt="The Vine group at the Abbey Trip" loading="lazy"></figure>
     <figure><img src="img/van-1.webp" alt="Road trip to the Abbey" loading="lazy"></figure>
@@ -370,6 +375,13 @@ el.innerHTML=(same?"Tonight · ":"Next meeting · ")+"<b>"+t.toLocaleDateString(
 document.querySelectorAll(".mosaic figure img,.strip img").forEach(i=>i.addEventListener("click",()=>{const lb=document.getElementById("lb");lb.querySelector("img").src=i.src;lb.classList.add("on")}));
 document.getElementById("lb").addEventListener("click",e=>{if(e.target.id==="lb")e.currentTarget.classList.remove("on")});
 addEventListener("keydown",e=>{if(e.key==="Escape")document.getElementById("lb").classList.remove("on")});
+</script>
+<script>
+fetch("instagram.json").then(r=>r.json()).then(list=>{if(!list.length)return;
+ const row=document.getElementById("igrow");
+ row.innerHTML=list.map(u=>`<div class="igp"><blockquote class="instagram-media" data-instgrm-permalink="${u}?utm_source=ig_embed" data-instgrm-version="14" style="background:#fff;border:1px solid #e4dccb;border-radius:14px"><a href="${u}">View this post on Instagram</a></blockquote></div>`).join("");
+ const s=document.createElement("script");s.async=true;s.src="https://www.instagram.com/embed.js";document.body.appendChild(s);
+}).catch(()=>{});
 </script>
 </body>
 </html>
