@@ -260,7 +260,7 @@ footer .brand{justify-content:center;margin-bottom:10px}
     <button role="tab" aria-selected="false" data-day="sun">Sunday</button>
   </div>
   <ul class="timeline" id="timeline"></ul>
-  <p class="note">Set an alarm. Midnight Praises start at 4:00 AM on Saturday and 3:00 AM on Sunday.</p>
+  <p class="note">Set an alarm. Midnight Praises start at 4:00 AM on both Saturday and Sunday.</p>
 </div></section>
 
 <section id="bring"><div class="wrap">
@@ -359,7 +359,7 @@ footer .brand{justify-content:center;margin-bottom:10px}
 const SCHEDULE = {
   fri:[["5:00 – 7:00 PM","Check-in"],["7:00 – 8:00 PM","Dinner","meal"],["8:30 – 8:45 PM","Orientation"],["8:45 – 9:45 PM","Lecture 1","lecture"],["9:45 – 10:00 PM","Veneration (Tamgeed)","prayer"]],
   sat:[["4:00 – 6:00 AM","Midnight Praises","prayer"],["6:00 – 8:00 AM","Divine Liturgy","prayer"],["8:00 – 9:00 AM","Breakfast","meal"],["9:00 – 11:15 AM","Work with the monks"],["12:00 – 1:00 PM","Lecture 2","lecture"],["1:00 – 2:00 PM","Lunch","meal"],["2:00 – 4:00 PM","Personal spiritual time"],["4:00 – 6:00 PM","Vespers prayers & praises","prayer"],["6:00 – 7:00 PM","Lecture 3","lecture"],["7:00 – 8:00 PM","Dinner","meal"],["8:15 – 9:00 PM","Veneration","prayer"],["9:00 PM","Clean room, pack & bed time"]],
-  sun:[["3:00 – 7:00 AM","Midnight Praises","prayer"],["7:00 – 9:00 AM","Personal meditation / rest"],["9:00 – 11:00 AM","Divine Liturgy","prayer"],["11:00 – 11:15 AM","Group picture"],["11:15 AM – 12:00 PM","Lunch","meal"],["12:00 – 2:00 PM","Bookstore & farewell"]]
+  sun:[["4:00 – 7:00 AM","Midnight Praises","prayer"],["7:00 – 9:00 AM","Personal meditation / rest"],["9:00 – 11:00 AM","Divine Liturgy","prayer"],["11:00 – 11:15 AM","Group picture"],["11:15 AM – 12:00 PM","Lunch","meal"],["12:00 – 2:00 PM","Bookstore & farewell"]]
 };
 const TAGS={prayer:["Prayer","t-prayer"],lecture:["Lecture","t-lecture"],meal:["Meal","t-meal"]};
 function renderDay(d){
