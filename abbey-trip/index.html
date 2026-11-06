@@ -288,10 +288,14 @@ footer .brand{justify-content:center;margin-bottom:10px}
 <section id="reflect"><div class="wrap">
   <div class="sec-head">
     <div class="eyebrow">Guided reflection</div>
-    <h2>“Though I was blind, now I see.”</h2>
-    <p>John 9:25. Each Sunday of Lent shows a different kind of spiritual blindness and how Christ heals it. Use your quiet time to sit with one. Tap a week to open its questions.</p>
+    <h2>Coming soon</h2>
+    <p>Each year's reflection guide follows the theme of the retreat. The 2027 theme and guide will be shared here closer to the trip.</p>
   </div>
-  <div class="weeks" id="weeks"></div>
+  <div class="week" style="max-width:560px;padding:26px 24px">
+    <div class="n">Retreat 2027 · February 5–7</div>
+    <h3>Theme to be announced</h3>
+    <div class="sub">Follow <a href="https://www.instagram.com/thecopticvine/" style="color:var(--gold-soft)">@thecopticvine</a> for the announcement.</div>
+  </div>
 </div></section>
 
 <section id="gallery" style="padding-top:0"><div class="wrap">
@@ -376,7 +380,7 @@ const WEEKS=[
  ["The Paralytic Man","Blindness to the need for healing","John 5:1–15",["Are there struggles I've accepted instead of seeking healing?","When Jesus asks “Do you want to be made well?”, how will I answer?","What step can I take to cooperate with His healing?"],"Psalm 30:2 · “O Lord my God, I cried out to You, and You healed me.”"],
  ["The Blind Man","Blindness to Christ Himself","John 9:1–41",["Do I see Jesus working in my life?","Where do pride, doubt or distraction keep me from Him?","How can I grow in spiritual sight?"],"Psalm 146:8 · “The Lord opens the eyes of the blind.”"]
 ];
-document.getElementById("weeks").innerHTML=WEEKS.map(([t,s,r,q,p],i)=>`<details class="week"><summary><div class="n">Week ${i+1} · ${r}</div><h3>${t}</h3><div class="sub">${s}</div><div class="more">Open reflection ↓</div></summary><div class="body"><ul>${q.map(x=>`<li>${x}</li>`).join("")}</ul><p class="psalm">${p}</p></div></details>`).join("");
+const _w=document.getElementById("weeks"); if(_w) _w.innerHTML=WEEKS.map(([t,s,r,q,p],i)=>`<details class="week"><summary><div class="n">Week ${i+1} · ${r}</div><h3>${t}</h3><div class="sub">${s}</div><div class="more">Open reflection ↓</div></summary><div class="body"><ul>${q.map(x=>`<li>${x}</li>`).join("")}</ul><p class="psalm">${p}</p></div></details>`).join("");
 
 // trip config
 document.getElementById("yr").textContent=TRIP.year;
