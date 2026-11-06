@@ -390,7 +390,7 @@ const SCHEDULE = {
 };
 const TAGS={prayer:["Prayer","t-prayer"],lecture:["Lecture","t-lecture"],meal:["Meal","t-meal"]};
 function renderDay(d){
-  document.getElementById("timeline").innerHTML=SCHEDULE[d].map(([t,a,k])=>`<li><time>${t}</time><span class="act">${a}${k?`<span class="tag ${TAGS[k][1]}">${TAGS[k][0]}</span>`:""}</span></li>`).join("");
+  document.getElementById("timeline").innerHTML=SCHEDULE[d].map(([t,a,k])=>`<li><time>${t}</time><span class="act">${a}</span></li>`).join("");
 }
 document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{
   document.querySelectorAll(".tabs button").forEach(x=>x.setAttribute("aria-selected",x===b));
